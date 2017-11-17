@@ -19,8 +19,13 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
     //Variables
     //1000 méter széles kör a user köröl
     let regionRadious: Double = 1000
+    var screenSize = UIScreen.main.bounds
     var locationManager = CLLocationManager()
-    
+    var spinner: UIActivityIndicatorView?
+    var downloadLbl: UILabel?
+    var collectionview: UICollectionView!
+    var cellId = "photoCell"
+    var flowLayout = UICollectionViewFlowLayout()
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //Ha nincsen engedély akkor kérni kell
@@ -33,31 +38,45 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         mapView.delegate = self
         CLService.instance.authorize()
-        let doublePin = UITapGestureRecognizer(target: self, action: #selector(CityVC.handleDoubleTap(sender:)))
-        doublePin.delegate = self
-        doublePin.numberOfTapsRequired = 2
-        self.view.addGestureRecognizer(doublePin)
+        addGestures()
         
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeDown.direction = UISwipeGestureRecognizerDirection.down
-        self.view.addGestureRecognizer(swipeDown)
-        
+        collectionview = UICollectionView(frame: self.view.frame, collectionViewLayout: flowLayout)
+        collectionview.dataSource = self
+        collectionview.delegate = self
+        collectionview.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        collectionview.register(PhotoCell.self, forCellWithReuseIdentifier: cellId)
+        self.photoView.addSubview(collectionview!)
     }
     
-    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.right:
-                print("Swiped right")
-            case UISwipeGestureRecognizerDirection.down:
-                animateViewDown()
-            case UISwipeGestureRecognizerDirection.left:
-                print("Swiped left")
-            case UISwipeGestureRecognizerDirection.up:
-                print("Swiped up")
-            default:
-                break
-            }
+
+    func addActivityIndicator(){
+        spinner = UIActivityIndicatorView()
+        spinner?.activityIndicatorViewStyle = .whiteLarge
+        spinner?.center = CGPoint(x: (screenSize.width / 2) - ((spinner?.frame.width)! / 2), y: 150 )
+        spinner?.color = #colorLiteral(red: 0.4078193307, green: 0.4078193307, blue: 0.4078193307, alpha: 1)
+        spinner?.startAnimating()
+        self.collectionview?.addSubview(spinner!)
+    }
+    
+    func removeActivityIndicator(){
+        //Ha már van spinner akkor el kell távolítani
+        if spinner != nil{
+            spinner?.removeFromSuperview()
+        }
+    }
+    
+    func addDownloadLbl(){
+        downloadLbl = UILabel()
+        downloadLbl?.textColor = #colorLiteral(red: 0.4078193307, green: 0.4078193307, blue: 0.4078193307, alpha: 1)
+        downloadLbl?.font = UIFont.systemFont(ofSize: 16)
+        downloadLbl?.frame = CGRect(x: (screenSize.width / 2) - 120 , y: 175, width: 240, height: 40)
+        downloadLbl?.textAlignment = .center
+        downloadLbl?.text = "12/24 photos downloaded"
+        self.collectionview?.addSubview(downloadLbl!)
+    }
+    func removeDownloadLbl(){
+        if downloadLbl != nil{
+            downloadLbl?.removeFromSuperview()
         }
     }
     
@@ -78,9 +97,12 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
     
     @objc func handleDoubleTap(sender: UITapGestureRecognizer){
         removeAnnotation()
+        removeActivityIndicator()
+        removeDownloadLbl()
         
         animateViewUp()
-        
+        addActivityIndicator()
+        addDownloadLbl()
         print("double tapped")
         //Hová érint
         let touchPoint = sender.location(in: mapView)
@@ -154,5 +176,49 @@ extension CityVC: MKMapViewDelegate{
 extension CityVC: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         centerMapOnUserLocation()
+    }
+}
+//Gestures
+extension CityVC {
+    func addGestures(){
+        let doublePin = UITapGestureRecognizer(target: self, action: #selector(CityVC.handleDoubleTap(sender:)))
+        doublePin.delegate = self
+        doublePin.numberOfTapsRequired = 2
+        self.view.addGestureRecognizer(doublePin)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        self.view.addGestureRecognizer(swipeDown)
+    }
+    
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                print("Swiped right")
+            case UISwipeGestureRecognizerDirection.down:
+                animateViewDown()
+            case UISwipeGestureRecognizerDirection.left:
+                print("Swiped left")
+            case UISwipeGestureRecognizerDirection.up:
+                print("Swiped up")
+            default:
+                break
+            }
+        }
+    }
+}
+//UICollectionView
+extension CityVC: UICollectionViewDelegate, UICollectionViewDataSource{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionview.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? PhotoCell else { return UICollectionViewCell() }
+        return cell
     }
 }
