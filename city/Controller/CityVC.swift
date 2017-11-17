@@ -10,10 +10,11 @@ import UIKit
 import MapKit
 import CoreLocation
 class CityVC: UIViewController, UIGestureRecognizerDelegate {
-
+    
     //Outlets
     @IBOutlet weak var mapView: MKMapView!
-    
+    @IBOutlet weak var photoView: UIView!
+    @IBOutlet weak var photoViewConstraints: NSLayoutConstraint!
     
     //Variables
     //1000 méter széles kör a user köröl
@@ -35,12 +36,50 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
         let doublePin = UITapGestureRecognizer(target: self, action: #selector(CityVC.handleDoubleTap(sender:)))
         doublePin.delegate = self
         doublePin.numberOfTapsRequired = 2
-        view.addGestureRecognizer(doublePin)
+        self.view.addGestureRecognizer(doublePin)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        self.view.addGestureRecognizer(swipeDown)
+        
     }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                print("Swiped right")
+            case UISwipeGestureRecognizerDirection.down:
+                animateViewDown()
+            case UISwipeGestureRecognizerDirection.left:
+                print("Swiped left")
+            case UISwipeGestureRecognizerDirection.up:
+                print("Swiped up")
+            default:
+                break
+            }
+        }
+    }
+    
+    func animateViewUp(){
+        self.photoViewConstraints.constant = 300
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func animateViewDown(){
+        self.photoViewConstraints.constant = 1
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     
     @objc func handleDoubleTap(sender: UITapGestureRecognizer){
         removeAnnotation()
         
+        animateViewUp()
         
         print("double tapped")
         //Hová érint

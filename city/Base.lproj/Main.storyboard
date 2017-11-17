@@ -54,6 +54,13 @@
                                     <action selector="centerBtnWasPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pds-96-cPE"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yi-Qx-a80">
+                                <rect key="frame" x="0.0" y="666" width="375" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Byq-xM-X4e"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -64,13 +71,18 @@
                             <constraint firstItem="Sm1-6j-sin" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Lcr-WS-kUT"/>
                             <constraint firstItem="6OD-Wm-33A" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MSx-cU-LOP"/>
                             <constraint firstItem="6OD-Wm-33A" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="S2W-sp-pWe"/>
+                            <constraint firstItem="1yi-Qx-a80" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="chs-zN-BPU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cuU-NA-ayG" secondAttribute="trailing" constant="20" id="j6v-nX-7vK"/>
+                            <constraint firstItem="1yi-Qx-a80" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oUf-Gu-WGS"/>
+                            <constraint firstItem="1yi-Qx-a80" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="rUt-E8-DKl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cuU-NA-ayG" secondAttribute="bottom" constant="20" id="t5K-Sf-jCd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Sm1-6j-sin" id="blW-sV-CpI"/>
+                        <outlet property="photoView" destination="1yi-Qx-a80" id="G32-R9-t28"/>
+                        <outlet property="photoViewConstraints" destination="Byq-xM-X4e" id="Ue5-tb-YUQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
