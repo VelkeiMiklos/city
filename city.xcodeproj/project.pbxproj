@@ -14,6 +14,7 @@
 		F5495B5E1FBB820B00DF14B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5495B5D1FBB820B00DF14B6 /* Assets.xcassets */; };
 		F5495B611FBB820B00DF14B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5495B5F1FBB820B00DF14B6 /* LaunchScreen.storyboard */; };
 		F5495B6E1FBB84DF00DF14B6 /* CLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5495B6D1FBB84DF00DF14B6 /* CLService.swift */; };
+		F5CBD0B11FBF2CCF003F6FEC /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CBD0B01FBF2CCF003F6FEC /* CustomAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		F5495B601FBB820B00DF14B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5495B621FBB820B00DF14B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5495B6D1FBB84DF00DF14B6 /* CLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLService.swift; sourceTree = "<group>"; };
+		F5CBD0B01FBF2CCF003F6FEC /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		FA047618125C2591B5A1F5E6 /* Pods-city.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-city.release.xcconfig"; path = "Pods/Target Support Files/Pods-city/Pods-city.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 		F5495B6A1FBB849900DF14B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F5CBD0B01FBF2CCF003F6FEC /* CustomAnnotation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				F5495B6E1FBB84DF00DF14B6 /* CLService.swift in Sources */,
 				F5495B591FBB820B00DF14B6 /* CityVC.swift in Sources */,
 				F5495B571FBB820B00DF14B6 /* AppDelegate.swift in Sources */,
+				F5CBD0B11FBF2CCF003F6FEC /* CustomAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

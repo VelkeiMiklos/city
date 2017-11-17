@@ -40,7 +40,7 @@
                                     <constraint firstItem="QbP-zc-sfZ" firstAttribute="centerX" secondItem="6OD-Wm-33A" secondAttribute="centerX" id="eWh-pg-Ciq"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Sm1-6j-sin">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sm1-6j-sin">
                                 <rect key="frame" x="0.0" y="90" width="375" height="577"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cuU-NA-ayG">
@@ -50,6 +50,9 @@
                                     <constraint firstAttribute="height" constant="67" id="iWj-3l-jvP"/>
                                 </constraints>
                                 <state key="normal" image="locationButton"/>
+                                <connections>
+                                    <action selector="centerBtnWasPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pds-96-cPE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
