@@ -16,6 +16,9 @@
 		F5495B6E1FBB84DF00DF14B6 /* CLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5495B6D1FBB84DF00DF14B6 /* CLService.swift */; };
 		F5CBD0B11FBF2CCF003F6FEC /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CBD0B01FBF2CCF003F6FEC /* CustomAnnotation.swift */; };
 		F5D90ED91FBF6BF7003A9119 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D90ED81FBF6BF7003A9119 /* PhotoCell.swift */; };
+		F5D90EDB1FBF6F95003A9119 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D90EDA1FBF6F95003A9119 /* Constants.swift */; };
+		F5D90EDD1FBF7188003A9119 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D90EDC1FBF7188003A9119 /* DataService.swift */; };
+		F5D90EE11FBF7E06003A9119 /* PhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D90EE01FBF7E06003A9119 /* PhotoVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,9 @@
 		F5495B6D1FBB84DF00DF14B6 /* CLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLService.swift; sourceTree = "<group>"; };
 		F5CBD0B01FBF2CCF003F6FEC /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		F5D90ED81FBF6BF7003A9119 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		F5D90EDA1FBF6F95003A9119 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F5D90EDC1FBF7188003A9119 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		F5D90EE01FBF7E06003A9119 /* PhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoVC.swift; sourceTree = "<group>"; };
 		FA047618125C2591B5A1F5E6 /* Pods-city.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-city.release.xcconfig"; path = "Pods/Target Support Files/Pods-city/Pods-city.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				F5495B581FBB820B00DF14B6 /* CityVC.swift */,
+				F5D90EE01FBF7E06003A9119 /* PhotoVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -125,6 +132,7 @@
 		F5495B6B1FBB849F00DF14B6 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				F5D90EDA1FBF6F95003A9119 /* Constants.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -133,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				F5495B6D1FBB84DF00DF14B6 /* CLService.swift */,
+				F5D90EDC1FBF7188003A9119 /* DataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -261,10 +270,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5495B6E1FBB84DF00DF14B6 /* CLService.swift in Sources */,
+				F5D90EDD1FBF7188003A9119 /* DataService.swift in Sources */,
 				F5D90ED91FBF6BF7003A9119 /* PhotoCell.swift in Sources */,
+				F5D90EE11FBF7E06003A9119 /* PhotoVC.swift in Sources */,
 				F5495B591FBB820B00DF14B6 /* CityVC.swift in Sources */,
 				F5495B571FBB820B00DF14B6 /* AppDelegate.swift in Sources */,
 				F5CBD0B11FBF2CCF003F6FEC /* CustomAnnotation.swift in Sources */,
+				F5D90EDB1FBF6F95003A9119 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

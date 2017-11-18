@@ -24,8 +24,10 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
     var spinner: UIActivityIndicatorView?
     var downloadLbl: UILabel?
     var collectionview: UICollectionView!
-    var cellId = "photoCell"
     var flowLayout = UICollectionViewFlowLayout()
+    var imageUrlArray = [String]()
+    var imageArray = [UIImage]()
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //Ha nincsen engedély akkor kérni kell
@@ -43,8 +45,8 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
         collectionview = UICollectionView(frame: self.view.frame, collectionViewLayout: flowLayout)
         collectionview.dataSource = self
         collectionview.delegate = self
-        collectionview.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-        collectionview.register(PhotoCell.self, forCellWithReuseIdentifier: cellId)
+        collectionview.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        collectionview.register(PhotoCell.self, forCellWithReuseIdentifier: CO_CELL_ID)
         self.photoView.addSubview(collectionview!)
     }
     
@@ -71,7 +73,7 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
         downloadLbl?.font = UIFont.systemFont(ofSize: 16)
         downloadLbl?.frame = CGRect(x: (screenSize.width / 2) - 120 , y: 175, width: 240, height: 40)
         downloadLbl?.textAlignment = .center
-        downloadLbl?.text = "12/24 photos downloaded"
+        downloadLbl?.text = "Downloading..."
         self.collectionview?.addSubview(downloadLbl!)
     }
     func removeDownloadLbl(){
@@ -88,6 +90,7 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func animateViewDown(){
+        DataService.instance.cancelAllSessions()
         self.photoViewConstraints.constant = 1
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
@@ -96,9 +99,13 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
     
     
     @objc func handleDoubleTap(sender: UITapGestureRecognizer){
+        imageUrlArray = []
+        imageArray = []
+        collectionview.reloadData()
         removeAnnotation()
         removeActivityIndicator()
         removeDownloadLbl()
+        DataService.instance.cancelAllSessions()
         
         animateViewUp()
         addActivityIndicator()
@@ -109,8 +116,32 @@ class CityVC: UIViewController, UIGestureRecognizerDelegate {
         print(touchPoint)
         //koordinátává alakítás
         let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        let annotation = CustomAnnotation(coordinate: touchCoordinate, id: "customAnnotation")
+        let annotation = CustomAnnotation(coordinate: touchCoordinate, id: CO_ANNOTATION_ID)
         mapView.addAnnotation(annotation)
+        
+        let url = flickrUrl(forApiKey: apiKey, withAnnotation: annotation, andNumberOfPhotos: 40)
+        print(url)
+        DataService.instance.downloadUrls(url: url) { (isSuccess, returnedUrls) in
+            if isSuccess{
+                self.imageUrlArray = returnedUrls!
+               // print(self.imageUrlArray)
+                for image in self.imageUrlArray{
+                    DataService.instance.downloadImage(image, handler: { (isImageSuccess, returnedImage) in
+                        if isImageSuccess{
+                            self.imageArray.append(returnedImage)
+                            self.downloadLbl?.text = "\(self.imageArray.count)/40 images downloaded"
+                            if self.imageArray.count == self.imageUrlArray.count{
+                                self.spinner?.removeFromSuperview()
+                                self.downloadLbl?.removeFromSuperview()
+                                self.collectionview!.reloadData()
+                            }
+                        }
+                    })
+                }
+
+            }
+        }
+        
     }
     
     func removeAnnotation(){
@@ -167,7 +198,7 @@ extension CityVC: MKMapViewDelegate{
             return nil
         }
         
-        let annotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "customAnnotation")
+        let annotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: CO_ANNOTATION_ID)
         annotation.pinTintColor = #colorLiteral(red: 0.9124692082, green: 0.6528410316, blue: 0.1888206005, alpha: 1)
         annotation.animatesDrop = true
         return annotation
@@ -215,10 +246,22 @@ extension CityVC: UICollectionViewDelegate, UICollectionViewDataSource{
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return imageArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionview.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? PhotoCell else { return UICollectionViewCell() }
+        guard let cell = collectionview.dequeueReusableCell(withReuseIdentifier: CO_CELL_ID, for: indexPath) as? PhotoCell else { return UICollectionViewCell() }
+        let imageIndex = imageArray[indexPath.row]
+        let imageView = UIImageView(image: imageIndex)
+        cell.addSubview(imageView)
+        
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let photoVC = storyboard?.instantiateViewController(withIdentifier: CO_PHOTO_VC) as? PhotoVC else{return}
+        photoVC.initView(image: imageArray[indexPath.row])
+        present(photoVC, animated: true, completion: nil)
+        
+    }
+    
 }

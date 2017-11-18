@@ -11,6 +11,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Bold</string>
         </array>
     </customFonts>
@@ -88,6 +89,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
+        </scene>
+        <!--PhotoVC-->
+        <scene sceneID="Q2U-BX-1uK">
+            <objects>
+                <viewController storyboardIdentifier="PhotoVC" id="9JN-U0-8d6" customClass="PhotoVC" customModule="city" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HSC-6I-sK8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0UJ-9s-eP3">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dobule Tap to close" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFa-3Z-NXZ">
+                                <rect key="frame" x="112" y="627" width="151" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0UJ-9s-eP3" firstAttribute="bottom" secondItem="Q3b-GD-Y2e" secondAttribute="bottom" id="XF4-eI-bRR"/>
+                            <constraint firstItem="0UJ-9s-eP3" firstAttribute="top" secondItem="Q3b-GD-Y2e" secondAttribute="top" id="awP-D8-DB7"/>
+                            <constraint firstItem="0UJ-9s-eP3" firstAttribute="leading" secondItem="Q3b-GD-Y2e" secondAttribute="leading" id="boX-cX-LAu"/>
+                            <constraint firstItem="0UJ-9s-eP3" firstAttribute="trailing" secondItem="Q3b-GD-Y2e" secondAttribute="trailing" id="lAw-Od-IHR"/>
+                            <constraint firstItem="BFa-3Z-NXZ" firstAttribute="centerX" secondItem="HSC-6I-sK8" secondAttribute="centerX" id="xAP-Au-3Wl"/>
+                            <constraint firstItem="Q3b-GD-Y2e" firstAttribute="bottom" secondItem="BFa-3Z-NXZ" secondAttribute="bottom" constant="20" id="xLq-J7-TMW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Q3b-GD-Y2e"/>
+                    </view>
+                    <connections>
+                        <outlet property="photoImg" destination="0UJ-9s-eP3" id="DKZ-Xh-m8b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iLw-nD-OIl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="122.78860569715144"/>
         </scene>
     </scenes>
     <resources>
